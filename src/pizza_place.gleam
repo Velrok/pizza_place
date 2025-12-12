@@ -19,9 +19,14 @@ fn add_topping(p: Pizza(Dough), t: Topping) -> Pizza(Dough) {
   Pizza(toppings: [t, ..p.toppings])
 }
 
+fn bake(p: Pizza(Dough)) -> Pizza(Baked) {
+  Pizza(toppings: p.toppings)
+}
+
 pub fn main() {
   new()
   |> add_topping(Cheese)
   |> add_topping(Pepperoni)
+  |> bake()
   |> echo
 }
