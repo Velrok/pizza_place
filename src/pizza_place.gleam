@@ -5,6 +5,7 @@ import gleam/string
 // Our restaunt only has these toppings. They are the best though :D .
 pub type Topping {
   Pepperoni
+  Pineapple
   Cheese
 }
 
@@ -38,6 +39,7 @@ fn topping_to_string(t: Topping) -> String {
   case t {
     Cheese -> "Cheese"
     Pepperoni -> "Pepperoni"
+    Pineapple -> "Pineapple"
   }
 }
 
@@ -49,10 +51,27 @@ fn eat(p: Pizza(Baked)) -> Nil {
   )
 }
 
+// We can judge the pizzas toppings raw or baked.
+fn rate_pizza(p: Pizza(a)) -> String {
+  case p.toppings {
+    [] -> "This is just bread."
+    [Pineapple, ..] -> "Pineapple first? Bold choice! 1/10"
+    [_, Pineapple] -> "Is that hidden Pineapple? Cheeky 0/10"
+    [Pepperoni, Cheese] -> "The classic, love it! 10/10"
+    _ -> "Looks fine. 4/10"
+  }
+}
+
 pub fn main() {
-  new()
-  |> add_topping(Cheese)
-  |> add_topping(Pepperoni)
-  |> bake()
-  |> eat()
+  let baked =
+    new()
+    |> add_topping(Cheese)
+    |> add_topping(Pepperoni)
+    |> bake()
+
+  baked
+  |> rate_pizza()
+  |> io.println()
+
+  eat(baked)
 }
