@@ -62,7 +62,15 @@ fn rate_pizza(p: Pizza(a)) -> String {
   }
 }
 
+fn with_music(song: String, task: fn() -> a) -> a {
+  io.println("Now playing: " <> song)
+  let result = task()
+  io.println(song <> " Finished")
+  result
+}
+
 pub fn main() {
+  use <- with_music("O Sole Mio")
   let baked =
     new()
     |> add_topping(Cheese)
